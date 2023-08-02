@@ -1,4 +1,4 @@
-package com.mecitdeniz.bitcointicker.ui.theme
+package com.mecitdeniz.bitcointicker.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

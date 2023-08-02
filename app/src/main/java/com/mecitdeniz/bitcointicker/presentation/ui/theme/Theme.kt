@@ -1,4 +1,4 @@
-package com.mecitdeniz.bitcointicker.ui.theme
+package com.mecitdeniz.bitcointicker.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
