@@ -1,4 +1,4 @@
-package com.mecitdeniz.bitcointicker.presentation.home.components
+package com.mecitdeniz.bitcointicker.presentation.coin_list.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -17,13 +17,14 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.mecitdeniz.bitcointicker.common.toFixedString
 import com.mecitdeniz.bitcointicker.domain.model.Coin
+import com.mecitdeniz.bitcointicker.presentation.ui.theme.DarkGreen
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun CoinListItem(
     modifier: Modifier = Modifier,
     coin: Coin,
-    onClick: (Coin) -> Unit
+    onClick: (String) -> Unit
 ) {
     Box(
         modifier = modifier
@@ -34,7 +35,7 @@ fun CoinListItem(
                 vertical = 8.dp
             )
             .clickable {
-                println("Clicked id: ${coin.id}")
+                onClick(coin.id)
             },
         contentAlignment = Alignment.Center
     ) {
@@ -110,7 +111,7 @@ fun CoinListItem(
                         text = "${coin.priceChangePercentage24H.toFixedString(2)}%",
                         maxLines = 1,
                         style = MaterialTheme.typography.labelMedium.copy(
-                            color = if (coin.priceChangePercentage24H > 0) Color.Green else Color.Red
+                            color = if (coin.priceChangePercentage24H > 0) DarkGreen else Color.Red
                         ),
                         overflow = TextOverflow.Ellipsis
                     )

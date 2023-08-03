@@ -1,4 +1,4 @@
-package com.mecitdeniz.bitcointicker.presentation.home
+package com.mecitdeniz.bitcointicker.presentation.coin_list
 
 import com.mecitdeniz.bitcointicker.domain.model.Coin
 

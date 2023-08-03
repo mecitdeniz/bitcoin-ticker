@@ -1,4 +1,4 @@
-package com.mecitdeniz.bitcointicker.presentation.home
+package com.mecitdeniz.bitcointicker.presentation.coin_list
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -8,7 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.mecitdeniz.bitcointicker.presentation.home.components.CoinListItem
+import com.mecitdeniz.bitcointicker.presentation.Screen
+import com.mecitdeniz.bitcointicker.presentation.coin_list.components.CoinListItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,8 +34,8 @@ fun CoinListScreen(
             state.coins?.let {
                 LazyColumn(modifier = Modifier.fillMaxWidth()) {
                     items(state.coins) { coin ->
-                        CoinListItem(coin = coin, onClick = {
-
+                        CoinListItem(coin = coin, onClick = { id ->
+                            navController.navigate(Screen.CoinDetailScreen.route + "/${id}")
                         })
                     }
                 }

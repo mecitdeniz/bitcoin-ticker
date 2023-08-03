@@ -13,10 +13,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.mecitdeniz.bitcointicker.presentation.Screen
+import com.mecitdeniz.bitcointicker.presentation.coin_detail.CoinDetailScreen
 import com.mecitdeniz.bitcointicker.presentation.profile.ProfileScreen
 import com.mecitdeniz.bitcointicker.presentation.login.LoginScreen
 import com.mecitdeniz.bitcointicker.presentation.splash.SplashScreen
-import com.mecitdeniz.bitcointicker.presentation.home.CoinListScreen
+import com.mecitdeniz.bitcointicker.presentation.coin_list.CoinListScreen
 import com.mecitdeniz.bitcointicker.presentation.ui.theme.BitcoinTickerTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -52,6 +53,10 @@ class MainActivity : ComponentActivity() {
                         ) {
                             composable(route = Screen.CoinListScreen.route) {
                                 CoinListScreen(navController = navController)
+                            }
+
+                            composable(route = Screen.CoinDetailScreen.route + "/{coinId}") {
+                                CoinDetailScreen()
                             }
 
                             composable(route = Screen.ProfileScreen.route) {

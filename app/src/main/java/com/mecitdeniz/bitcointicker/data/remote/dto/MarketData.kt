@@ -115,13 +115,13 @@ data class MarketData (
     val marketCapChangePercentage24HInCurrency: Map<String, Double>,
 
     @SerializedName("total_supply")
-    val totalSupply: Long,
+    val totalSupply: Double,
 
     @SerializedName("max_supply")
-    val maxSupply: Long,
+    val maxSupply: Double,
 
     @SerializedName("circulating_supply")
-    val circulatingSupply: Long,
+    val circulatingSupply: Double,
 
     @SerializedName("last_updated")
     val lastUpdated: String

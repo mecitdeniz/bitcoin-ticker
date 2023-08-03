@@ -20,7 +20,7 @@ data class CoinDetailDto (
     val blockTimeInMinutes: Long,
 
     @SerializedName("hashing_algorithm")
-    val hashingAlgorithm: String,
+    val hashingAlgorithm: String?,
 
     val categories: List<String>,
 
@@ -30,7 +30,7 @@ data class CoinDetailDto (
     @SerializedName("additional_notices")
     val additionalNotices: List<JsonElement?>?,
 
-    val description: Description,
+    val description: Description?,
     val links: Links,
     val image: Image,
 
@@ -74,7 +74,7 @@ data class CoinDetailDto (
     val marketData: MarketData,
 
     @SerializedName("public_interest_stats")
-    val publicInterestStats: PublicInterestStats,
+    val publicInterestStats: PublicInterestStats?,
 
     @SerializedName("status_updates")
     val statusUpdates: List<JsonElement?>?,
