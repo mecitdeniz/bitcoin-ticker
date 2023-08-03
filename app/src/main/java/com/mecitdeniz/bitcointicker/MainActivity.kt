@@ -19,6 +19,7 @@ import com.mecitdeniz.bitcointicker.presentation.login.LoginScreenViewModel
 import com.mecitdeniz.bitcointicker.presentation.splash.SplashScreen
 import com.mecitdeniz.bitcointicker.presentation.home.HomeScreen
 import com.mecitdeniz.bitcointicker.presentation.profile.ProfileScreenViewModel
+import com.mecitdeniz.bitcointicker.presentation.splash.SplashScreenViewModel
 import com.mecitdeniz.bitcointicker.presentation.ui.theme.BitcoinTickerTheme
 
 class MainActivity : ComponentActivity() {
@@ -34,7 +35,11 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(navController = navController, startDestination = "splash") {
                         composable(route = "splash") {
-                            SplashScreen(navController = navController)
+                            val viewModel = viewModel<SplashScreenViewModel>()
+                            SplashScreen(
+                                navController = navController,
+                                viewModel = viewModel
+                            )
                         }
 
                         navigation(
