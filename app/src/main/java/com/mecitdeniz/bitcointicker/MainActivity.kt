@@ -8,20 +8,18 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.mecitdeniz.bitcointicker.presentation.profile.ProfileScreen
 import com.mecitdeniz.bitcointicker.presentation.login.LoginScreen
-import com.mecitdeniz.bitcointicker.presentation.login.LoginScreenViewModel
 import com.mecitdeniz.bitcointicker.presentation.splash.SplashScreen
 import com.mecitdeniz.bitcointicker.presentation.home.HomeScreen
-import com.mecitdeniz.bitcointicker.presentation.profile.ProfileScreenViewModel
-import com.mecitdeniz.bitcointicker.presentation.splash.SplashScreenViewModel
 import com.mecitdeniz.bitcointicker.presentation.ui.theme.BitcoinTickerTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +33,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(navController = navController, startDestination = "splash") {
                         composable(route = "splash") {
-                            val viewModel = viewModel<SplashScreenViewModel>()
-                            SplashScreen(
-                                navController = navController,
-                                viewModel = viewModel
-                            )
+                            SplashScreen(navController = navController)
                         }
 
                         navigation(
@@ -47,8 +41,7 @@ class MainActivity : ComponentActivity() {
                             startDestination = "login"
                         ) {
                             composable(route = "login") {
-                                val viewModel = viewModel<LoginScreenViewModel>()
-                                LoginScreen(navController = navController, viewModel = viewModel)
+                                LoginScreen(navController = navController)
                             }
                         }
 
@@ -61,11 +54,7 @@ class MainActivity : ComponentActivity() {
                             }
 
                             composable(route = "profile") {
-                                val viewModel = viewModel<ProfileScreenViewModel>()
-                                ProfileScreen(
-                                    navController = navController,
-                                    viewModel = viewModel
-                                )
+                                ProfileScreen(navController = navController)
                             }
                         }
                     }

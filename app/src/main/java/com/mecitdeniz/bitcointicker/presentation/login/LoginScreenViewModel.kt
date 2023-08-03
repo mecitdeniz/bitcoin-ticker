@@ -8,12 +8,15 @@ import com.mecitdeniz.bitcointicker.common.Resource
 import com.mecitdeniz.bitcointicker.domain.FirebaseAuthService
 import com.mecitdeniz.bitcointicker.domain.isValidEmail
 import com.mecitdeniz.bitcointicker.domain.isValidPassword
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginScreenViewModel(
-    private val authService: FirebaseAuthService = FirebaseAuthService()
+@HiltViewModel
+class LoginScreenViewModel @Inject constructor(
+    private val authService: FirebaseAuthService
 ) : ViewModel() {
 
     private val _state = mutableStateOf(LoginScreenState())

@@ -1,6 +1,5 @@
 package com.mecitdeniz.bitcointicker.presentation.login
 
-import android.provider.CalendarContract.Colors
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
@@ -13,6 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.mecitdeniz.bitcointicker.R
 import com.mecitdeniz.bitcointicker.presentation.components.AppLogo
@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun LoginScreen(
     navController: NavController,
-    viewModel: LoginScreenViewModel
+    viewModel: LoginScreenViewModel = hiltViewModel()
 ) {
 
     val context = LocalContext.current
@@ -182,11 +182,3 @@ fun LoginScreen(
         }
     }
 }
-
-/*
-@Preview
-@Composable
-fun LoginScreenPreview() {
-    val navController = rememberNavController()
-    LoginScreen(navController = navController)
-}*/

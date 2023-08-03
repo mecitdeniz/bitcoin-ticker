@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.mecitdeniz.bitcointicker.R
 import kotlinx.coroutines.flow.collectLatest
@@ -17,15 +18,15 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun ProfileScreen(
     navController: NavController,
-    viewModel: ProfileScreenViewModel
+    viewModel: ProfileScreenViewModel = hiltViewModel()
 ) {
 
     val context = LocalContext.current
     val state = viewModel.state.value
 
     LaunchedEffect(key1 = true) {
-        viewModel.eventFlow.collectLatest {event ->
-            when(event) {
+        viewModel.eventFlow.collectLatest { event ->
+            when (event) {
                 ProfileScreenViewModel.UiEvent.SignOut -> {
                     navController.navigate("auth") {
                         popUpTo("feed") {
@@ -42,12 +43,12 @@ fun ProfileScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        state?.email?.let {
+        state?.email?.let { email ->
             Text(text = context.getString(R.string.logged_in_as))
-            
+
             Spacer(modifier = Modifier.height(8.dp))
-            
-            Text(text = "$it", style = MaterialTheme.typography.labelLarge)
+
+            Text(text = email, style = MaterialTheme.typography.labelLarge)
 
             Spacer(modifier = Modifier.height(8.dp))
 

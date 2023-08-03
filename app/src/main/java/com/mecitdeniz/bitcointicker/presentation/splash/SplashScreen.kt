@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.mecitdeniz.bitcointicker.R
 import com.mecitdeniz.bitcointicker.presentation.components.AppLogo
@@ -17,7 +18,7 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun SplashScreen(
     navController: NavController,
-    viewModel: SplashScreenViewModel
+    viewModel: SplashScreenViewModel = hiltViewModel()
 ) {
 
     val context = LocalContext.current
