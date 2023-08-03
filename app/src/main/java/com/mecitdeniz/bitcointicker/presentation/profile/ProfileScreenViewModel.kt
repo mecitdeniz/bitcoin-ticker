@@ -17,7 +17,7 @@ class ProfileScreenViewModel(
     private val _state = mutableStateOf<User?>(null)
     val state: State<User?> = _state
 
-    private val _eventFlow = MutableSharedFlow<ProfileScreenViewModel.UiEvent>()
+    private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
     init {
@@ -36,7 +36,7 @@ class ProfileScreenViewModel(
         authService.signOut()
         _state.value = null
         viewModelScope.launch {
-            _eventFlow.emit(ProfileScreenViewModel.UiEvent.SignOut)
+            _eventFlow.emit(UiEvent.SignOut)
         }
     }
 
