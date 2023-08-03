@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mecitdeniz.bitcointicker.common.Resource
 import com.mecitdeniz.bitcointicker.domain.FirebaseAuthService
-import com.mecitdeniz.bitcointicker.domain.isValidEmail
-import com.mecitdeniz.bitcointicker.domain.isValidPassword
+import com.mecitdeniz.bitcointicker.common.isValidEmail
+import com.mecitdeniz.bitcointicker.common.isValidPassword
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow

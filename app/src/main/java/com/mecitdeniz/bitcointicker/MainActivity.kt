@@ -16,7 +16,7 @@ import com.mecitdeniz.bitcointicker.presentation.Screen
 import com.mecitdeniz.bitcointicker.presentation.profile.ProfileScreen
 import com.mecitdeniz.bitcointicker.presentation.login.LoginScreen
 import com.mecitdeniz.bitcointicker.presentation.splash.SplashScreen
-import com.mecitdeniz.bitcointicker.presentation.home.HomeScreen
+import com.mecitdeniz.bitcointicker.presentation.home.CoinListScreen
 import com.mecitdeniz.bitcointicker.presentation.ui.theme.BitcoinTickerTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -48,10 +48,10 @@ class MainActivity : ComponentActivity() {
 
                         navigation(
                             route = Screen.HomeStack.route,
-                            startDestination = Screen.HomeScreen.route
+                            startDestination = Screen.CoinListScreen.route
                         ) {
-                            composable(route = Screen.HomeScreen.route) {
-                                HomeScreen(navController = navController)
+                            composable(route = Screen.CoinListScreen.route) {
+                                CoinListScreen(navController = navController)
                             }
 
                             composable(route = Screen.ProfileScreen.route) {

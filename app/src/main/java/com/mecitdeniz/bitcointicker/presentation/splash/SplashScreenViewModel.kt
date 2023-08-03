@@ -22,7 +22,7 @@ class SplashScreenViewModel @Inject constructor(
         val isLoggedIn = authService.isUserLoggedIn()
         val user = authService.getUserAccount()
         viewModelScope.launch {
-            delay(200)
+            delay(300)
             _eventFlow.emit(UiEvent.LoginStatus(isLoggedIn = isLoggedIn && user != null))
         }
     }
