@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.mecitdeniz.bitcointicker.R
+import com.mecitdeniz.bitcointicker.presentation.Screen
 import com.mecitdeniz.bitcointicker.presentation.components.AppLogo
 import kotlinx.coroutines.flow.collectLatest
 
@@ -35,8 +36,8 @@ fun LoginScreen(
             when (event) {
                 LoginScreenViewModel.UiEvent.CreateAccountSuccess,
                 LoginScreenViewModel.UiEvent.LoginSuccess -> {
-                    navController.navigate("feed") {
-                        popUpTo("auth") {
+                    navController.navigate(Screen.HomeStack.route) {
+                        popUpTo(Screen.AuthStack.route) {
                             inclusive = true
                         }
                     }

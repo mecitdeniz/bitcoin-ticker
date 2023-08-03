@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.mecitdeniz.bitcointicker.R
+import com.mecitdeniz.bitcointicker.presentation.Screen
 import com.mecitdeniz.bitcointicker.presentation.components.AppLogo
 import kotlinx.coroutines.flow.collectLatest
 
@@ -28,14 +29,14 @@ fun SplashScreen(
             when (event) {
                 is SplashScreenViewModel.UiEvent.LoginStatus -> {
                     if (!event.isLoggedIn) {
-                        navController.navigate("auth") {
-                            popUpTo("splash") {
+                        navController.navigate(Screen.AuthStack.route) {
+                            popUpTo(Screen.SplashScreen.route) {
                                 inclusive = true
                             }
                         }
                     } else {
-                        navController.navigate("feed") {
-                            popUpTo("splash") {
+                        navController.navigate(Screen.HomeStack.route) {
+                            popUpTo(Screen.SplashScreen.route) {
                                 inclusive = true
                             }
                         }

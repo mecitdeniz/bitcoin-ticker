@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.mecitdeniz.bitcointicker.presentation.Screen
 
 @Composable
 fun HomeScreen(
@@ -21,7 +22,7 @@ fun HomeScreen(
     ) {
         Text(text = "Home Screen")
         Button(onClick = {
-            navController.navigate("profile")
+            navController.navigate(Screen.ProfileScreen.route)
         }) {
             Text(text = "Go to Profile")
         }

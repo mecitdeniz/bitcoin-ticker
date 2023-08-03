@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import com.mecitdeniz.bitcointicker.presentation.Screen
 import com.mecitdeniz.bitcointicker.presentation.profile.ProfileScreen
 import com.mecitdeniz.bitcointicker.presentation.login.LoginScreen
 import com.mecitdeniz.bitcointicker.presentation.splash.SplashScreen
@@ -31,29 +32,29 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "splash") {
-                        composable(route = "splash") {
+                    NavHost(navController = navController, startDestination = Screen.SplashScreen.route) {
+                        composable(route = Screen.SplashScreen.route) {
                             SplashScreen(navController = navController)
                         }
 
                         navigation(
-                            route = "auth",
-                            startDestination = "login"
+                            route = Screen.AuthStack.route,
+                            startDestination = Screen.LoginScreen.route
                         ) {
-                            composable(route = "login") {
+                            composable(route = Screen.LoginScreen.route) {
                                 LoginScreen(navController = navController)
                             }
                         }
 
                         navigation(
-                            route = "feed",
-                            startDestination = "home"
+                            route = Screen.HomeStack.route,
+                            startDestination = Screen.HomeScreen.route
                         ) {
-                            composable(route = "home") {
+                            composable(route = Screen.HomeScreen.route) {
                                 HomeScreen(navController = navController)
                             }
 
-                            composable(route = "profile") {
+                            composable(route = Screen.ProfileScreen.route) {
                                 ProfileScreen(navController = navController)
                             }
                         }

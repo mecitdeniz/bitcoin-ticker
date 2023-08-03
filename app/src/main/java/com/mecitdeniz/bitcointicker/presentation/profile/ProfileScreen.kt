@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.mecitdeniz.bitcointicker.R
+import com.mecitdeniz.bitcointicker.presentation.Screen
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -28,8 +29,8 @@ fun ProfileScreen(
         viewModel.eventFlow.collectLatest { event ->
             when (event) {
                 ProfileScreenViewModel.UiEvent.SignOut -> {
-                    navController.navigate("auth") {
-                        popUpTo("feed") {
+                    navController.navigate(Screen.AuthStack.route) {
+                        popUpTo(Screen.HomeStack.route) {
                             inclusive = true
                         }
                     }
