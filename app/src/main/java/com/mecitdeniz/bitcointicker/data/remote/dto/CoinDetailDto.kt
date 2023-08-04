@@ -2,6 +2,7 @@ package com.mecitdeniz.bitcointicker.data.remote.dto
 
 import com.google.gson.JsonElement
 import com.google.gson.annotations.SerializedName
+import com.mecitdeniz.bitcointicker.domain.model.CoinDetail
 
 data class CoinDetailDto (
     val id: String,
@@ -82,6 +83,20 @@ data class CoinDetailDto (
     @SerializedName("last_updated")
     val lastUpdated: String
 )
+
+fun CoinDetailDto.toCoinDetail(): CoinDetail {
+    return CoinDetail(
+        id = id,
+        name = name,
+        symbol = symbol,
+        image = image.large,
+        currentPrice = marketData.currentPrice["usd"],
+        marketCapRank = marketData.marketCapRank,
+        description = description?.en,
+        hashingAlgorithm = hashingAlgorithm,
+        priceChangePercentage24H =  marketData.priceChangePercentage24H
+    )
+}
 
 
 

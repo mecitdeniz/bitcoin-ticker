@@ -8,4 +8,7 @@
     <string name="logged_in_as">Logged in as</string>
     <string name="create_account">Create Account</string>
     <string name="do_not_have_an_account">Don\'t have an account</string>
+    <string name="rank">Rank #</string>
+    <string name="refresh_interval">Refresh interval :</string>
+    <string name="hashing_algorithm">Hashing Algorithm :</string>
 </resources>

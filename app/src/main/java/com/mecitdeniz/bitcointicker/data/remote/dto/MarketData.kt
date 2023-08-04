@@ -37,7 +37,7 @@ data class MarketData (
     val marketCap: Map<String, Double>,
 
     @SerializedName("market_cap_rank")
-    val marketCapRank: Long,
+    val marketCapRank: Double,
 
     @SerializedName("fully_diluted_valuation")
     val fullyDilutedValuation: Map<String, Double>,

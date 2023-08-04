@@ -3,7 +3,7 @@ package com.mecitdeniz.bitcointicker.common
 import java.text.DecimalFormat
 
 fun String.isValidEmail(): Boolean {
-    if(isEmpty()) return false
+    if (isEmpty()) return false
     return android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
 }
 
