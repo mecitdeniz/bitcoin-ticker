@@ -30,7 +30,7 @@ fun ProfileScreen(
             when (event) {
                 ProfileScreenViewModel.UiEvent.SignOut -> {
                     navController.navigate(Screen.AuthStack.route) {
-                        popUpTo(Screen.HomeStack.route) {
+                        popUpTo(Screen.BottomNavGraph.route) {
                             inclusive = true
                         }
                     }

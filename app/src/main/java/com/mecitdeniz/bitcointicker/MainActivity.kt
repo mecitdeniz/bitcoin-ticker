@@ -5,19 +5,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.compose.*
 import com.mecitdeniz.bitcointicker.presentation.Screen
-import com.mecitdeniz.bitcointicker.presentation.coin_detail.CoinDetailScreen
-import com.mecitdeniz.bitcointicker.presentation.profile.ProfileScreen
 import com.mecitdeniz.bitcointicker.presentation.login.LoginScreen
 import com.mecitdeniz.bitcointicker.presentation.splash.SplashScreen
-import com.mecitdeniz.bitcointicker.presentation.coin_list.CoinListScreen
+import com.mecitdeniz.bitcointicker.presentation.components.BottomNavGraph
 import com.mecitdeniz.bitcointicker.presentation.ui.theme.BitcoinTickerTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,7 +28,10 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = Screen.SplashScreen.route) {
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.SplashScreen.route
+                    ) {
                         composable(route = Screen.SplashScreen.route) {
                             SplashScreen(navController = navController)
                         }
@@ -47,21 +45,10 @@ class MainActivity : ComponentActivity() {
                             }
                         }
 
-                        navigation(
-                            route = Screen.HomeStack.route,
-                            startDestination = Screen.CoinListScreen.route
+                        composable(
+                            route = Screen.BottomNavGraph.route,
                         ) {
-                            composable(route = Screen.CoinListScreen.route) {
-                                CoinListScreen(navController = navController)
-                            }
-
-                            composable(route = Screen.CoinDetailScreen.route + "/{coinId}") {
-                                CoinDetailScreen()
-                            }
-
-                            composable(route = Screen.ProfileScreen.route) {
-                                ProfileScreen(navController = navController)
-                            }
+                            BottomNavGraph(navController)
                         }
                     }
                 }

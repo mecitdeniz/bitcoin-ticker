@@ -36,7 +36,7 @@ fun LoginScreen(
             when (event) {
                 LoginScreenViewModel.UiEvent.CreateAccountSuccess,
                 LoginScreenViewModel.UiEvent.LoginSuccess -> {
-                    navController.navigate(Screen.HomeStack.route) {
+                    navController.navigate(Screen.BottomNavGraph.route) {
                         popUpTo(Screen.AuthStack.route) {
                             inclusive = true
                         }

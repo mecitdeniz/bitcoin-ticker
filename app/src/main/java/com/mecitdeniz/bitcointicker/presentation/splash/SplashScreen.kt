@@ -27,7 +27,7 @@ fun SplashScreen(
 
     when (state.isLoggedIn) {
         true -> {
-            navController.navigate(Screen.HomeStack.route) {
+            navController.navigate(Screen.BottomNavGraph.route) {
                 popUpTo(Screen.SplashScreen.route) {
                     inclusive = true
                 }
