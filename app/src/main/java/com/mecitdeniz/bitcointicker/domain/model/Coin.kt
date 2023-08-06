@@ -8,4 +8,5 @@ data class Coin(
     val currentPrice: Double,
     val marketCapRank: Double,
     val priceChangePercentage24H: Double,
+    val firebaseId: String,
 )

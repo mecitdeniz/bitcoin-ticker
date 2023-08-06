@@ -1,10 +1,12 @@
 package com.mecitdeniz.bitcointicker.presentation.coin_list.components
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,7 +26,9 @@ import com.mecitdeniz.bitcointicker.presentation.ui.theme.DarkGreen
 fun CoinListItem(
     modifier: Modifier = Modifier,
     coin: Coin,
-    onClick: (String) -> Unit
+    onClick: (String) -> Unit,
+    onDeleteClick: (String) -> Unit,
+    showDeleteIcon: Boolean = false
 ) {
     Box(
         modifier = modifier
@@ -98,6 +102,7 @@ fun CoinListItem(
                 }
 
                 Column(
+                    modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.End
                 ) {
@@ -115,6 +120,20 @@ fun CoinListItem(
                         ),
                         overflow = TextOverflow.Ellipsis
                     )
+                }
+
+                if (showDeleteIcon) {
+                    IconButton(
+                        modifier = Modifier.padding(start = 8.dp),
+                        onClick = {
+                            onDeleteClick(coin.firebaseId)
+                        }) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = "delete",
+                            tint = MaterialTheme.colorScheme.error
+                        )
+                    }
                 }
             }
         }

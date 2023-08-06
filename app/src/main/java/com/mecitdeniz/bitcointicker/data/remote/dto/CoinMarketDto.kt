@@ -86,6 +86,7 @@ fun CoinMarketDto.toCoin(): Coin {
         image = image,
         currentPrice = currentPrice,
         marketCapRank = marketCapRank,
-        priceChangePercentage24H =  priceChangePercentage24H
+        priceChangePercentage24H =  priceChangePercentage24H,
+        firebaseId = ""
     )
 }

@@ -13,10 +13,19 @@ class MyCoinsRepositoryImpl @Inject constructor(
     override suspend fun getMyCoinsFromFireStore(): Resource<List<CoinDetail>> {
         val def = CompletableDeferred<Resource<List<CoinDetail>>>()
         myCoinsRef
+            .orderBy("marketCapRank")
             .get()
             .addOnCompleteListener {
                 if (it.isSuccessful) {
-                    def.complete(Resource.Success(data = it.result.toObjects(CoinDetail::class.java)))
+                    val data = it.result.toObjects(CoinDetail::class.java)
+                    val ids = mutableListOf<String>()
+                    it.result.documents.forEach { document ->
+                        ids.add(document.id)
+                    }
+                    data.forEachIndexed { index, coinDetail ->
+                        coinDetail.firebaseId = ids[index]
+                    }
+                    def.complete(Resource.Success(data = data))
                 } else {
                     def.complete(
                         Resource.Error(

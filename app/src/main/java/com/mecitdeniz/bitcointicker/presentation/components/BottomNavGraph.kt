@@ -1,8 +1,11 @@
 package com.mecitdeniz.bitcointicker.presentation.components
 
+import androidx.compose.animation.fadeIn
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -23,9 +26,15 @@ fun BottomNavGraph(
         }
     ) {
         NavHost(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it),
             navController = navController,
             route = Screen.BottomNavGraph.route,
-            startDestination = BottomBarScreen.Profile.route
+            startDestination = BottomBarScreen.Profile.route,
+            enterTransition = {
+                fadeIn()
+            }
         ) {
             composable(
                 route = BottomBarScreen.Home.route,
@@ -33,11 +42,15 @@ fun BottomNavGraph(
                 CoinStack()
             }
 
-            composable(route = BottomBarScreen.Favorites.route) {
-                Text(text = "My Coins")
+            composable(
+                route = BottomBarScreen.Favorites.route,
+            ) {
+                MyCoinsStack()
             }
 
-            composable(route = BottomBarScreen.Profile.route) {
+            composable(
+                route = BottomBarScreen.Profile.route,
+            ) {
                 ProfileScreen(navController = rootNavController)
             }
         }
