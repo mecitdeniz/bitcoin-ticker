@@ -14,7 +14,6 @@ import androidx.navigation.NavController
 import com.mecitdeniz.bitcointicker.R
 import com.mecitdeniz.bitcointicker.presentation.Screen
 import com.mecitdeniz.bitcointicker.presentation.components.AppLogo
-import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun SplashScreen(
@@ -24,40 +23,41 @@ fun SplashScreen(
 
     val context = LocalContext.current
 
-    LaunchedEffect(key1 = true) {
-        viewModel.eventFlow.collectLatest { event ->
-            when (event) {
-                is SplashScreenViewModel.UiEvent.LoginStatus -> {
-                    if (!event.isLoggedIn) {
-                        navController.navigate(Screen.AuthStack.route) {
-                            popUpTo(Screen.SplashScreen.route) {
-                                inclusive = true
-                            }
-                        }
-                    } else {
-                        navController.navigate(Screen.HomeStack.route) {
-                            popUpTo(Screen.SplashScreen.route) {
-                                inclusive = true
-                            }
-                        }
-                    }
+    val state = viewModel.state.value
+
+    when (state.isLoggedIn) {
+        true -> {
+            navController.navigate(Screen.HomeStack.route) {
+                popUpTo(Screen.SplashScreen.route) {
+                    inclusive = true
                 }
             }
         }
+        false -> {
+            navController.navigate(Screen.AuthStack.route) {
+                popUpTo(Screen.SplashScreen.route) {
+                    inclusive = true
+                }
+            }
+        }
+        null -> Unit
     }
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        AppLogo()
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text(
-            text = context.getString(R.string.app_name),
-            style = MaterialTheme.typography.headlineMedium
-        )
+    LaunchedEffect(key1 = true) {
+        viewModel.checkIsLoggedIn()
     }
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            AppLogo()
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = context.getString(R.string.app_name),
+                style = MaterialTheme.typography.headlineMedium
+            )
+        }
 }
