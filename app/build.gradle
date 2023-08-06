@@ -65,6 +65,8 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation("com.google.firebase:firebase-auth-ktx")
 
+    implementation("com.google.firebase:firebase-firestore-ktx")
+
     // Compose dependencies
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0-alpha01"
     implementation "androidx.navigation:navigation-compose:2.7.0-rc01"
