@@ -5,6 +5,7 @@ object Constants {
     const val PARAM_COIN_ID = "coinId"
     const val SHARED_PREFERENCES = "sharedPreferences"
     const val INTERVAL_PREF = "interval_pref"
+    const val MY_COINS_REF = "my_coins"
 
     val REFRESH_INTERVAL = listOf(
         Pair("30s", 30000L),

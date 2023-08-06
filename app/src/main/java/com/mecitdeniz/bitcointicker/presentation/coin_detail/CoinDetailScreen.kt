@@ -39,8 +39,10 @@ fun CoinDetailScreen(
                         onOptionSelected = {
                             viewModel.setIntervalValue(it)
                         },
-                        isInFavorites = coin.isInFavorites,
-                        onIconClick = {}
+                        isInFavorites = state.isInFavorites,
+                        onIconClick = {
+                            viewModel.onFavoritesButtonClick()
+                        }
                     )
                 }
 

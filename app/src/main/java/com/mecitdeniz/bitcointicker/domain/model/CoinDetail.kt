@@ -9,6 +9,5 @@ data class CoinDetail(
     val description: String?,
     val hashingAlgorithm: String?,
     val marketCapRank: Double,
-    val isInFavorites: Boolean = false,
     val priceChangePercentage24H: Double,
 )

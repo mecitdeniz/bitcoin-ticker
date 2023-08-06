@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.mecitdeniz.bitcointicker.common.Constants
 import com.mecitdeniz.bitcointicker.common.Resource
 import com.mecitdeniz.bitcointicker.common.Utils
+import com.mecitdeniz.bitcointicker.domain.repository.MyCoinsRepository
 import com.mecitdeniz.bitcointicker.domain.use_case.GetCoinUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -23,9 +24,14 @@ import javax.inject.Inject
 @HiltViewModel
 class CoinDetailScreenViewModel @Inject constructor(
     private val getCoinUseCase: GetCoinUseCase,
+    private val myCoinsRepository: MyCoinsRepository,
     private val sharedPreferences: SharedPreferences,
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
+
+    companion object {
+        private const val TAG = "CoinDetailScreenViewModel"
+    }
 
     private val _state = mutableStateOf(CoinDetailScreenState())
     val state: State<CoinDetailScreenState> = _state
@@ -38,13 +44,12 @@ class CoinDetailScreenViewModel @Inject constructor(
         startRefreshDataJob()
     }
 
-    private var count = 0
-
     private fun getCoinId() {
         savedStateHandle.get<String>(Constants.PARAM_COIN_ID)?.let { coinId ->
             _state.value = _state.value.copy(
                 coinId = coinId
             )
+            isInFavorites(coinId)
         }
     }
 
@@ -53,14 +58,13 @@ class CoinDetailScreenViewModel @Inject constructor(
             Constants.INTERVAL_PREF,
             Constants.REFRESH_INTERVAL.first().second
         )
-        println("Pref: $interval")
         _state.value = _state.value.copy(
             refreshInterval = interval
         )
     }
 
     fun setIntervalValue(value: String) {
-        println("setIntervalValue $value")
+        Log.d(TAG, "setIntervalValue: $value")
         val interval = Utils.getIntervalLong(value)
         if (interval == _state.value.refreshInterval) {
             return
@@ -80,7 +84,7 @@ class CoinDetailScreenViewModel @Inject constructor(
     }
 
     private fun resetRefreshDataJob() {
-        println("resetRefreshDataJob")
+        Log.d(TAG, "resetRefreshDataJob")
         refreshDataJob?.cancel()
         refreshDataJob = null
         startRefreshDataJob()
@@ -93,10 +97,88 @@ class CoinDetailScreenViewModel @Inject constructor(
         if (refreshDataJob == null || !refreshDataJob!!.isActive) {
             refreshDataJob = viewModelScope.launch {
                 while (isActive) {
-                    Log.d("Job", "fetch data $count")
+                    Log.d(TAG, "fetch data")
                     getCoin(coinId)
-                    count++
                     delay(refreshInterval)
+                }
+            }
+        }
+    }
+
+    private fun isInFavorites(coinId: String) {
+        viewModelScope.launch {
+            val result = myCoinsRepository.getCoinById(coinId)
+            when (result) {
+                is Resource.Error -> Unit
+                is Resource.Success -> {
+                    val firebaseId = result.data.toString()
+                    _state.value = _state.value.copy(
+                        isInFavorites = firebaseId.isNotEmpty(),
+                        firebaseId = firebaseId
+                    )
+                }
+            }
+
+        }
+    }
+
+    fun onFavoritesButtonClick() {
+        val coin = _state.value.coin ?: return
+        viewModelScope.launch {
+            val result = myCoinsRepository.getCoinById(coin.id)
+            when (result) {
+                is Resource.Error -> Unit
+                is Resource.Success -> {
+                    val isExist = result.data.toString().isNotEmpty()
+                    if (!isExist) {
+                        addToFavorites()
+                        return@launch
+                    }
+                    removeFromFavorites()
+                }
+            }
+
+        }
+    }
+
+    private fun removeFromFavorites() {
+        val firebaseId = _state.value.firebaseId
+        if (firebaseId.isEmpty()) return
+        viewModelScope.launch {
+            val result = myCoinsRepository.deleteCoinFromFireStore(firebaseId)
+            when (result) {
+                is Resource.Success -> {
+                    Log.d(TAG, "Document removed.. ${result.data}")
+                    _state.value = _state.value.copy(
+                        isInFavorites = false,
+                        firebaseId = ""
+                    )
+                }
+                is Resource.Error -> {
+                    result.message?.let {
+                        Log.e(TAG, it)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun addToFavorites() {
+        val coin = _state.value.coin ?: return
+        viewModelScope.launch {
+            val result = myCoinsRepository.addCoinToFireStore(coin)
+            when (result) {
+                is Resource.Success -> {
+                    Log.d(TAG, "Document added.. ${result.data}")
+                    _state.value = _state.value.copy(
+                        isInFavorites = true
+                    )
+                    isInFavorites(coin.id)
+                }
+                is Resource.Error -> {
+                    result.message?.let {
+                        Log.e(TAG, it)
+                    }
                 }
             }
         }

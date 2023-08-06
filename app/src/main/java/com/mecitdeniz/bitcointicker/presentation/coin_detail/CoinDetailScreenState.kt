@@ -8,4 +8,6 @@ data class CoinDetailScreenState(
     val coinId: String? = null,
     val refreshInterval: Long? = null,
     val errorMessage: String? = null,
+    val isInFavorites: Boolean = false,
+    val firebaseId: String = ""
 )
