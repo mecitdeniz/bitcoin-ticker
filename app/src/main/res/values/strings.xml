@@ -11,4 +11,5 @@
     <string name="rank">Rank #</string>
     <string name="refresh_interval">Refresh interval :</string>
     <string name="hashing_algorithm">Hashing Algorithm :</string>
+    <string name="api_limit_error">You have exceeded the free API limits! Please, wait for some time to try again.</string>
 </resources>
