@@ -10,9 +10,10 @@ import javax.inject.Inject
 class MyCoinsRepositoryImpl @Inject constructor(
     private val myCoinsRef: CollectionReference
 ) : MyCoinsRepository {
-    override suspend fun getMyCoinsFromFireStore(): Resource<List<CoinDetail>> {
+    override suspend fun getMyCoinsFromFireStore(firebaseUserId: String): Resource<List<CoinDetail>> {
         val def = CompletableDeferred<Resource<List<CoinDetail>>>()
         myCoinsRef
+            .whereEqualTo("firebaseUserId", firebaseUserId)
             .orderBy("marketCapRank")
             .get()
             .addOnCompleteListener {

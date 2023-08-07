@@ -11,4 +11,5 @@ data class CoinDetail(
     val marketCapRank: Double = 0.0,
     val priceChangePercentage24H: Double = 0.0,
     var firebaseId: String? = "",
+    var firebaseUserId: String? = ""
 )

@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.mecitdeniz.bitcointicker.common.Constants
 import com.mecitdeniz.bitcointicker.common.Resource
 import com.mecitdeniz.bitcointicker.common.Utils
+import com.mecitdeniz.bitcointicker.domain.FirebaseAuthService
 import com.mecitdeniz.bitcointicker.domain.repository.MyCoinsRepository
 import com.mecitdeniz.bitcointicker.domain.use_case.GetCoinUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,6 +28,7 @@ class CoinDetailScreenViewModel @Inject constructor(
     private val myCoinsRepository: MyCoinsRepository,
     private val sharedPreferences: SharedPreferences,
     private val savedStateHandle: SavedStateHandle,
+    private val authService: FirebaseAuthService
 ) : ViewModel() {
 
     companion object {
@@ -118,7 +120,6 @@ class CoinDetailScreenViewModel @Inject constructor(
                     )
                 }
             }
-
         }
     }
 
@@ -137,7 +138,6 @@ class CoinDetailScreenViewModel @Inject constructor(
                     removeFromFavorites()
                 }
             }
-
         }
     }
 
@@ -166,6 +166,8 @@ class CoinDetailScreenViewModel @Inject constructor(
     private fun addToFavorites() {
         val coin = _state.value.coin ?: return
         viewModelScope.launch {
+            val userId = authService.getUserAccount()?.uid ?: return@launch
+            coin.firebaseUserId = userId
             val result = myCoinsRepository.addCoinToFireStore(coin)
             when (result) {
                 is Resource.Success -> {

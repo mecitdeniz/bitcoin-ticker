@@ -5,7 +5,7 @@ import com.mecitdeniz.bitcointicker.domain.model.CoinDetail
 
 interface MyCoinsRepository {
 
-    suspend fun getMyCoinsFromFireStore(): Resource<List<CoinDetail>>
+    suspend fun getMyCoinsFromFireStore(firebaseUserId: String): Resource<List<CoinDetail>>
 
     suspend fun getCoinById(coinId: String): Resource<String>
 
